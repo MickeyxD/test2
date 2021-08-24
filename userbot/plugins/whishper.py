@@ -1,6 +1,6 @@
-# Made by @Kraken_The_BadAss for @AuraXUserbot
+# Made by @Kraken_The_BadAss for @VAMPBOT_OFFICIAL
 
-from AuraXBot.utils import *
+from vampBot.utils import *
 from userbot.cmdhelp import CmdHelp
 
 

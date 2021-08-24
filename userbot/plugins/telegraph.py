@@ -5,12 +5,12 @@ from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
 
 from userbot import ALIVE_NAME
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
-AuraX_NAME = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
+vamp_NAME = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 
-aura = bot.uid
+vamp = bot.uid
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
@@ -23,7 +23,7 @@ async def _(event):
     if event.fwd_from:
         return
     if Config.PLUGIN_CHANNEL is None:
-        await edit_or_reply(event, "Please set the required environment variable `PLUGIN_CHANNEL` for this plugin to work\n\nGo to [AuraXBot Chat Group](t.me/AuraXSupport) for assistance"
+        await edit_or_reply(event, "Please set the required environment variable `PLUGIN_CHANNEL` for this plugin to work\n\nGo to [vampBot Chat Group](t.me/vampSupport) for assistance"
         )
         return
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
@@ -62,7 +62,7 @@ async def _(event):
                 os.remove(downloaded_file_name)
                 await edit_or_reply(event, 
                    "✓ **YOUR FILE :-** https://telegra.ph{} \n✓ **Time Taken :-** `{}` secs \n✓ **By :- [{}](tg://user?id={})**".format(
-                        media_urls[0], (ms + ms_two), AuraX_NAME, aura
+                        media_urls[0], (ms + ms_two), vamp_NAME, vamp
                     ),
                     link_preview=True,
                 )
@@ -89,9 +89,9 @@ async def _(event):
             response = telegraph.create_page(title_of_page, html_content=page_content)
             end = datetime.now()
             ms = (end - start).seconds
-            IisGaurav = f"https://telegra.ph/{response['path']}"
+            D15H4NT0P = f"https://telegra.ph/{response['path']}"
             await edit_or_reply(event, 
-                  f"✓ **Pasted to** [telegraph]({IisGaurav}) \n✓ **Time Taken :-** `{ms}` secs\n✓** By :- **[{AuraX_NAME}](tg://user?id={aura})", link_preview=True)
+                  f"✓ **Pasted to** [telegraph]({D15H4NT0P}) \n✓ **Time Taken :-** `{ms}` secs\n✓** By :- **[{vamp_NAME}](tg://user?id={vamp})", link_preview=True)
     else:
         await edit_or_reply(event, 
             "Reply to a message to get a permanent telegra.ph link."

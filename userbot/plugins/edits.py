@@ -11,7 +11,7 @@ from cowpy import cow
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 #$$$$$$$$$$$$$$$$$¢$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$¢$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$¢
@@ -19,7 +19,7 @@ from userbot.cmdhelp import CmdHelp
 GENDER = [
     "u is mard",
     "u is man",
-    "u is aurat",
+    "u is vampt",
     "u is woman",
     "u is gey",
     "u is chakka",

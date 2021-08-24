@@ -1,4 +1,4 @@
-# pmpermit for AuraXBot.....
+# pmpermit for vampBot.....
 
 import asyncio
 import io
@@ -9,15 +9,15 @@ from telethon import events, functions
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot.plugins.sql_helper import pmpermit_sql as pmpermit_sql
-from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, AuraX_ID
+from userbot import ALIVE_NAME, CUSTOM_PMPERMIT, vamp_ID
 from userbot.Config import Config
-from AuraXBot.utils import admin_cmd
+from vampBot.utils import admin_cmd
 from userbot.cmdhelp import CmdHelp
 
 PM_TRUE_FALSE = Config.PM_DATA
 
 PMPERMIT_PIC = os.environ.get("PMPERMIT_PIC", None)
-AuraXPIC = (
+vampPIC = (
     PMPERMIT_PIC
     if PMPERMIT_PIC
     else "https://telegra.ph/file/62b6e6a1bb6ed711401ce.jpg"
@@ -25,17 +25,17 @@ AuraXPIC = (
 PM_WARNS = {}
 PREV_REPLY_MESSAGE = {}
 myid = bot.uid
-aura = (
+vamp = (
     str(CUSTOM_PMPERMIT)
     if CUSTOM_PMPERMIT
     else "**YOU HAVE TRESPASSED TO MY MASTERS INBOX** \n THIS IS ILLEGAL AND REGARDED AS CRIME"
 )
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
-USER_BOT_WARN_ZERO = "**You were spamming my sweet master's inbox, henceforth you have been blocked by my master's AuraXBot.**\n__Now GTFO, i'm busy__"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
+USER_BOT_WARN_ZERO = "**You were spamming my sweet master's inbox, henceforth you have been blocked by my master's vampBot.**\n__Now GTFO, i'm busy__"
 USER_BOT_NO_WARN = (
-    "Hello, This is **AuraXBot Ultra Private Security Protocol⚠️**.\n"
+    "Hello, This is **vampBot Ultra Private Security Protocol⚠️**.\n"
     f"This is my master {DEFAULTUSER}'s Inbox\n"
-    f"\n**{aura}**\n\n"
+    f"\n**{vamp}**\n\n"
     "To start a valid conversation\n🔱Register Your Request!🔱\nSend `/start` To Register Your Request\nHopefully u will get a reply🔥"
 )
 
@@ -205,7 +205,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                     out_file,
                     force_document=True,
                     allow_cache=False,
-                    caption="[AuraXBot]Current Approved PMs",
+                    caption="[vampBot]Current Approved PMs",
                     reply_to=event,
                 )
                 await event.delete()
@@ -287,7 +287,7 @@ if Var.PRIVATE_GROUP_ID is not None:
             except:
                 return
         r = await borg.send_file(
-            event.chat_id, AuraXPIC, caption=USER_BOT_NO_WARN, force_document=False
+            event.chat_id, vampPIC, caption=USER_BOT_NO_WARN, force_document=False
         )
         PM_WARNS[chat_id] += 1
         if chat_id in PREV_REPLY_MESSAGE:

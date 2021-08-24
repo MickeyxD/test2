@@ -17,7 +17,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 
 from userbot.cmdhelp import CmdHelp
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 
 # ================= CONSTANT =================
 
@@ -623,7 +623,7 @@ async def vapor(vpr):
 @bot.on(sudo_cmd(pattern=f"repo", allow_sudo=True))
 async def source(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await edit_or_reply(e, "Click [here](https://github.com/iisgaurav/AuraXBot) to open this 🔥**Lit AF!!**🔥 __AuraXBot__ Repo.. Join channel :- @AuraXUserbot")
+        await edit_or_reply(e, "Click [here](https://github.com/D15H4NT0P/vampBot) to open this 🔥**Lit AF!!**🔥 __vampBot__ Repo.. Join channel :- @VAMPBOT_OFFICIAL")
 
 
 @bot.on(admin_cmd(pattern="str(?: |$)(.*)", outgoing=True))
@@ -811,7 +811,7 @@ async def smrk(smk):
         message = textx
         message = str(message.message)
     if message == "dele":
-        await edit_or_reply(smk, message + "te the AuraX" + "ツ")
+        await edit_or_reply(smk, message + "te the vamp" + "ツ")
         await edit_or_reply(smk, "ツ")
     else:
         smirk = " ツ"
@@ -874,4 +874,4 @@ CmdHelp("memes").add_command(
 ).add_command(
   "cowsay", "<text>", "Use and see....."
 ).add()
-#AuraXBot_OP
+#vampBot_OP

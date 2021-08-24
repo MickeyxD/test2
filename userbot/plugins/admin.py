@@ -31,7 +31,7 @@ from telethon.tl.types import (
 
 from userbot import *
 from userbot.plugins.sql_helper.mute_sql import is_muted, mute, unmute
-from AuraXBot.utils import *
+from vampBot.utils import *
 from userbot.cmdhelp import CmdHelp
 
 # =================== CONSTANT ===================
@@ -96,21 +96,21 @@ async def set_group_photo(gpic):
             photo = await gpic.client.download_file(replymsg.media.document)
         else:
             await edit_or_reply(gpic, INVALID_MEDIA)
-    aura = None
+    vamp = None
     if photo:
         try:
             await gpic.client(
                 EditPhotoRequest(gpic.chat_id, await gpic.client.upload_file(photo))
             )
             await edit_or_reply(gpic, CHAT_PP_CHANGED)
-            aura = True
+            vamp = True
         except PhotoCropSizeSmallError:
             await edit_or_reply(gpic, PP_TOO_SMOL)
         except ImageProcessFailedError:
             await edit_or_reply(gpic, PP_ERROR)
         except Exception as e:
             await edit_or_reply(gpic, f"**Error : **`{str(e)}`")
-        if BOTLOG and aura:
+        if BOTLOG and vamp:
             await gpic.client.send_message(
                 BOTLOG_CHATID,
                 "#GROUPPIC\n"
@@ -139,17 +139,17 @@ async def promote(promt):
         delete_messages=True,
         pin_messages=True,
     )
-    AuraXevent = await edit_or_reply(promt, "Promoting...")
+    vampevent = await edit_or_reply(promt, "Promoting...")
     user, rank = await get_user_from_event(promt)
     if not rank:
-        rank = "AURAX"
+        rank = "vamp"
     if not user:
         return
     try:
         await promt.client(EditAdminRequest(promt.chat_id, user.id, new_rights, rank))
-        await AuraXevent.edit("𝙋𝙍𝙊𝙈𝙊𝙏𝙀𝘿 𝙎𝙐𝘾𝘾𝙀𝙎𝙎𝙁𝙐𝙇𝙇𝙔..!!")
+        await vampevent.edit("𝙋𝙍𝙊𝙈𝙊𝙏𝙀𝘿 𝙎𝙐𝘾𝘾𝙀𝙎𝙎𝙁𝙐𝙇𝙇𝙔..!!")
     except BadRequestError:
-        await AuraXevent.edit(NO_PERM)
+        await vampevent.edit(NO_PERM)
         return
     if BOTLOG:
         await promt.client.send_message(
@@ -172,7 +172,7 @@ async def demote(dmod):
     if not admin and not creator:
         await edit_or_reply(dmod, NO_ADMIN)
         return
-    AuraXevent = await edit_or_reply(dmod, "Demoting...")
+    vampevent = await edit_or_reply(dmod, "Demoting...")
     rank = "??????"
     user = await get_user_from_event(dmod)
     user = user[0]
@@ -189,9 +189,9 @@ async def demote(dmod):
     try:
         await dmod.client(EditAdminRequest(dmod.chat_id, user.id, newrights, rank))
     except BadRequestError:
-        await AuraXevent.edit(NO_PERM)
+        await vampevent.edit(NO_PERM)
         return
-    await AuraXevent.edit("𝘿𝙀𝙈𝙊𝙏𝙀𝘿 𝙎𝙐𝘾𝘾𝙀𝙎𝙎𝙁𝙐𝙇𝙇𝙔..!!")
+    await vampevent.edit("𝘿𝙀𝙈𝙊𝙏𝙀𝘿 𝙎𝙐𝘾𝘾𝙀𝙎𝙎𝙁𝙐𝙇𝙇𝙔..!!")
     if BOTLOG:
         await dmod.client.send_message(
             BOTLOG_CHATID,
@@ -216,23 +216,23 @@ async def ban(bon):
     user, reason = await get_user_from_event(bon)
     if not user:
         return
-    AuraXevent = await edit_or_reply(bon, "Banning this retard")
+    vampevent = await edit_or_reply(bon, "Banning this retard")
     try:
         await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
     except BadRequestError:
-        await AuraXevent.edit(NO_PERM)
+        await vampevent.edit(NO_PERM)
         return
     try:
         reply = await bon.get_reply_message()
         if reply:
             await reply.delete()
     except BadRequestError:
-        await AuraXevent.edit("𝙄 𝙖𝙞𝙣'𝙩 𝙜𝙤𝙩 𝙢𝙨𝙜 𝙙𝙚𝙡𝙚𝙩𝙞𝙣𝙜 𝙧𝙞𝙜𝙝𝙩. 𝘽𝙪𝙩 𝙨𝙩𝙞𝙡𝙡 𝘽𝙖𝙣𝙣𝙚𝙙!")
+        await vampevent.edit("𝙄 𝙖𝙞𝙣'𝙩 𝙜𝙤𝙩 𝙢𝙨𝙜 𝙙𝙚𝙡𝙚𝙩𝙞𝙣𝙜 𝙧𝙞𝙜𝙝𝙩. 𝘽𝙪𝙩 𝙨𝙩𝙞𝙡𝙡 𝘽𝙖𝙣𝙣𝙚𝙙!")
         return
     if reason:
-        await AuraXevent.edit(f"{str(user.id)} 𝙄𝙎 𝘽𝘼𝙉𝙉𝙀𝘿...!!\nReason: {reason}")
+        await vampevent.edit(f"{str(user.id)} 𝙄𝙎 𝘽𝘼𝙉𝙉𝙀𝘿...!!\nReason: {reason}")
     else:
-        await AuraXevent.edit(f"{str(user.id)} 𝙄𝙎 𝘽𝘼𝙉𝙉𝙀𝘿...!!")
+        await vampevent.edit(f"{str(user.id)} 𝙄𝙎 𝘽𝘼𝙉𝙉𝙀𝘿...!!")
     if BOTLOG:
         await bon.client.send_message(
             BOTLOG_CHATID,
@@ -254,14 +254,14 @@ async def nothanos(unbon):
     if not admin and not creator:
         await edit_or_reply(unbon, NO_ADMIN)
         return
-    AuraXevent = await edit_or_reply(unbon, "Unbanning...")
+    vampevent = await edit_or_reply(unbon, "Unbanning...")
     user = await get_user_from_event(unbon)
     user = user[0]
     if not user:
         return
     try:
         await unbon.client(EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
-        await AuraXevent.edit("𝙐𝙉𝘽𝘼𝙉𝙉𝙀𝘿 𝙎𝙐𝘾𝘾𝙀𝙎𝙎𝙁𝙐𝙇𝙇𝙔 𝙃𝙊𝙋𝙀 𝙔𝙊𝙐 𝙃𝘼𝙑𝙀 𝙇𝙀𝘼𝙍𝙉𝙀𝘿 𝘼 𝙇𝙀𝙎𝙎𝙊𝙉...!!")
+        await vampevent.edit("𝙐𝙉𝘽𝘼𝙉𝙉𝙀𝘿 𝙎𝙐𝘾𝘾𝙀𝙎𝙎𝙁𝙐𝙇𝙇𝙔 𝙃𝙊𝙋𝙀 𝙔𝙊𝙐 𝙃𝘼𝙑𝙀 𝙇𝙀𝘼𝙍𝙉𝙀𝘿 𝘼 𝙇𝙀𝙎𝙎𝙊𝙉...!!")
         if BOTLOG:
             await unbon.client.send_message(
                 BOTLOG_CHATID,
@@ -270,7 +270,7 @@ async def nothanos(unbon):
                 f"CHAT: {unbon.chat.title}(`{unbon.chat_id}`)",
             )
     except UserIdInvalidError:
-        await AuraXevent.edit("𝙎𝙤𝙧𝙧𝙮 𝙄 𝘾𝙖𝙣'𝙩 𝙐𝙣𝙗𝙖𝙣 𝙏𝙝𝙞𝙨 𝙍𝙚𝙩𝙖𝙧𝙙!")
+        await vampevent.edit("𝙎𝙤𝙧𝙧𝙮 𝙄 𝘾𝙖𝙣'𝙩 𝙐𝙣𝙗𝙖𝙣 𝙏𝙝𝙞𝙨 𝙍𝙚𝙩𝙖𝙧𝙙!")
 
 
 @command(incoming=True)
@@ -341,19 +341,19 @@ async def kick(usr):
     if not user:
         await edit_or_reply(usr, "𝘾𝙤𝙪𝙡𝙙𝙣'𝙩 𝙛𝙚𝙩𝙘𝙝 𝙪𝙨𝙚𝙧.")
         return
-    AuraXevent = await edit_or_reply(usr, "Kicking...")
+    vampevent = await edit_or_reply(usr, "Kicking...")
     try:
         await usr.client.kick_participant(usr.chat_id, user.id)
         await sleep(0.5)
     except Exception as e:
-        await AuraXevent.edit(NO_PERM + f"\n{str(e)}")
+        await vampevent.edit(NO_PERM + f"\n{str(e)}")
         return
     if reason:
-        await AuraXevent.edit(
+        await vampevent.edit(
             f"𝙆𝙄𝘾𝙆𝙀𝘿 [{user.first_name}](tg://user?id={user.id})!\nReason: {reason}"
         )
     else:
-        await AuraXevent.edit(f"𝙆𝙄𝘾𝙆𝙀𝘿 [{user.first_name}](tg://user?id={user.id})!")
+        await vampevent.edit(f"𝙆𝙄𝘾𝙆𝙀𝘿 [{user.first_name}](tg://user?id={user.id})!")
     if BOTLOG:
         await usr.client.send_message(
             BOTLOG_CHATID,

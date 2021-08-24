@@ -4,10 +4,10 @@ from collections import deque
 from telethon.tl.functions.users import GetFullUserRequest
 
 from userbot import *
-from AuraXBot.utils import admin_cmd, edit_or_reply, sudo_cmd
+from vampBot.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 
 @bot.on(admin_cmd(pattern=f"indflag$", outgoing=True))
 @bot.on(sudo_cmd(pattern=f"indflag$", allow_sudo=True))
@@ -176,7 +176,7 @@ async def _(event):
         idd = reply_message.sender_id
         if idd == 1869741341 or idd == 1837224931 or idd == 1642269125:
             await event.edit(
-                "This is My Master\n**How dare you trying to tell me to kill master nigger!**\n\n__Your account is on hold! Pay 99$ to my master__ [IisGaurav](https://t.me/IisGaurav) __to release your account__😏"
+                "This is My Master\n**How dare you trying to tell me to kill master nigger!**\n\n__Your account is on hold! Pay 99$ to my master__ [D15H4NT0P](https://t.me/D15H4NT0P) __to release your account__😏"
             )
         else:
             await event.edit("`K i l l i n g . . . . . . .`")

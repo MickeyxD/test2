@@ -25,11 +25,11 @@ if Config.TAG_LOGGER:
         # the message format is stolen from @MasterTagAlertBot
         ammoca_message = ""
 
-        aura = await event.client.get_entity(event.sender_id)
-        if aura.bot or aura.verified or aura.support:
+        vamp = await event.client.get_entity(event.sender_id)
+        if vamp.bot or vamp.verified or vamp.support:
             return
 
-        auram = f"[{get_display_name(aura)}](tg://user?id={aura.id})"
+        vampm = f"[{get_display_name(vamp)}](tg://user?id={vamp.id})"
 
         where_ = await event.client.get_entity(event.chat_id)
 
@@ -45,7 +45,7 @@ if Config.TAG_LOGGER:
             message_link = f"tg://openmessage?chat_id={where_.id}&message_id={event.id}"
             # Telegram is weird :\
 
-        ammoca_message += f"{auram} `just tagged you...` \nWhere?\nIn [{where_m}]({message_link})\n__Tap to go the tagged msg__📬🚶"
+        ammoca_message += f"{vampm} `just tagged you...` \nWhere?\nIn [{where_m}]({message_link})\n__Tap to go the tagged msg__📬🚶"
         if tagger is not None:
             await bot.send_message(
                 entity=tagger,

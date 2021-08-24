@@ -5,25 +5,25 @@ from pathlib import Path
 from telethon import events
 from telethon import functions, types
 from telethon.tl.types import InputMessagesFilterDocument
-from AuraXBot.utils import *
+from vampBot.utils import *
 from userbot import *
-from userbot import bot as AuraXBot
+from userbot import bot as vampBot
 
 DELETE_TIMEOUT = 5
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
-AuraX_logo = "./AURAX/AuraXBot_logo.jpg"
-aura = AuraXBot.uid
-AuraX = f"[{DEFAULTUSER}](tg://user?id={aura})"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
+vamp_logo = "./vamp/vampBot_logo.jpg"
+vamp = vampBot.uid
+vamp = f"[{DEFAULTUSER}](tg://user?id={vamp})"
 
-@AuraXBot.on(admin_cmd(pattern=r"send (?P<shortname>\w+)", outgoing=True))
-@AuraXBot.on(sudo_cmd(pattern=r"send (?P<shortname>\w+)", allow_sudo=True))
+@vampBot.on(admin_cmd(pattern=r"send (?P<shortname>\w+)", outgoing=True))
+@vampBot.on(sudo_cmd(pattern=r"send (?P<shortname>\w+)", allow_sudo=True))
 async def send(event):
     if event.fwd_from:
         return
     message_id = event.message.id
-    thumb = AuraX_logo
+    thumb = vamp_logo
     input_str = event.pattern_match.group(1)
-    omk = f"**⍟ Plugin name ≈** `{input_str}`\n**⍟ Uploaded by ≈** {AuraX}\n\n⚡ **[Legendary AuraXBot](t.me/AuraXUserbot)** ⚡"
+    omk = f"**⍟ Plugin name ≈** `{input_str}`\n**⍟ Uploaded by ≈** {vamp}\n\n⚡ **[Legendary vampBot](t.me/VAMPBOT_OFFICIAL)** ⚡"
     the_plugin_file = "./userbot/plugins/{}.py".format(input_str)
     if os.path.exists(the_plugin_file):
         lauda = await event.client.send_file(
@@ -39,8 +39,8 @@ async def send(event):
     else:
         await edit_or_reply(event, "File not found..... Kek")
 
-@AuraXBot.on(admin_cmd(pattern="install$", outgoing=True))
-@AuraXBot.on(sudo_cmd(pattern="install$", allow_sudo=True))
+@vampBot.on(admin_cmd(pattern="install$", outgoing=True))
+@vampBot.on(sudo_cmd(pattern="install$", allow_sudo=True))
 async def install(event):
     if event.fwd_from:
         return
@@ -71,7 +71,7 @@ async def install(event):
                             a = "__Installing...__"
                             b = 1
                         await event.edit(a)
-                    return await event.edit(f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {AuraX}\n\n{string}\n\n        ⚡ **[Legendary AuraXBot](t.me/AuraXUserbot)** ⚡", link_preview=False)
+                    return await event.edit(f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {vamp}\n\n{string}\n\n        ⚡ **[Legendary vampBot](t.me/VAMPBOT_OFFICIAL)** ⚡", link_preview=False)
                 return await event.edit(f"Installed module `{os.path.basename(downloaded_file_name)}`")
             else:
                 os.remove(downloaded_file_name)
@@ -80,22 +80,22 @@ async def install(event):
             await event.edit(f"**Failed to Install** \n`Error`\n{str(e)}")
             return os.remove(downloaded_file_name)
     
-@AuraXBot.on(admin_cmd(pattern=r"uninstall (?P<shortname>\w+)", outgoing=True))
-@AuraXBot.on(sudo_cmd(pattern=r"uninstall (?P<shortname>\w+)", allow_sudo=True))
-async def uninstall(aura):
-    if aura.fwd_from:
+@vampBot.on(admin_cmd(pattern=r"uninstall (?P<shortname>\w+)", outgoing=True))
+@vampBot.on(sudo_cmd(pattern=r"uninstall (?P<shortname>\w+)", allow_sudo=True))
+async def uninstall(vamp):
+    if vamp.fwd_from:
         return
-    shortname = aura.pattern_match["shortname"]
+    shortname = vamp.pattern_match["shortname"]
     dir_path =f"./userbot/plugins/{shortname}.py"
     try:
         remove_plugin(shortname)
         os.remove(dir_path)
-        await aura.edit(f"Uninstalled `{shortname}` successfully")
+        await vamp.edit(f"Uninstalled `{shortname}` successfully")
     except OSError as e:
-        await aura.edit("Error: %s : %s" % (dir_path, e.strerror))
+        await vamp.edit("Error: %s : %s" % (dir_path, e.strerror))
 
-@AuraXBot.on(admin_cmd(pattern=r"unload (?P<shortname>\w+)$"))
-@AuraXBot.on(sudo_cmd(pattern=r"upload (?P<shortname>\w+)$", allow_sudo=True))
+@vampBot.on(admin_cmd(pattern=r"unload (?P<shortname>\w+)$"))
+@vampBot.on(sudo_cmd(pattern=r"upload (?P<shortname>\w+)$", allow_sudo=True))
 async def unload(event):
     if event.fwd_from:
         return
@@ -111,8 +111,8 @@ async def unload(event):
         )
 
 
-@AuraXBot.on(admin_cmd(pattern=r"load (?P<shortname>\w+)$"))
-@AuraXBot.on(sudo_cmd(pattern=r"load (?P<shortname>\w+)$", allow_sudo=True))
+@vampBot.on(admin_cmd(pattern=r"load (?P<shortname>\w+)$"))
+@vampBot.on(sudo_cmd(pattern=r"load (?P<shortname>\w+)$", allow_sudo=True))
 async def load(event):
     if event.fwd_from:
         return
@@ -140,5 +140,5 @@ CmdHelp("core").add_command(
 ).add_command(
   "send", "<file name>", "Sends the given file from your userbot server, if any.", "send alive"
 ).add_command(
-  "cmds", None, "Gives out the list of modules in AuraXBot."
+  "cmds", None, "Gives out the list of modules in vampBot."
 ).add()

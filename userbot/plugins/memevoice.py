@@ -7,32 +7,32 @@
 import re
 
 from userbot import bot
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 from userbot.helpers.functions import deEmojify
 
 
 @bot.on(admin_cmd(pattern="mev(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="mev(?: |$)(.*)", allow_sudo=True))
-async def nope(aura):
-    AuraX = aura.pattern_match.group(1)
-    if not AuraX:
-        if aura.is_reply:
-            (await aura.get_reply_message()).message
+async def nope(vamp):
+    vamp = vamp.pattern_match.group(1)
+    if not vamp:
+        if vamp.is_reply:
+            (await vamp.get_reply_message()).message
         else:
-            await edit_or_reply(aura, "`Sir please give some query to search and download it for you..!`"
+            await edit_or_reply(vamp, "`Sir please give some query to search and download it for you..!`"
             )
             return
 
-    troll = await bot.inline_query("TrollVoiceBot", f"{(deEmojify(AuraX))}")
+    troll = await bot.inline_query("TrollVoiceBot", f"{(deEmojify(vamp))}")
 
     await troll[0].click(
-        aura.chat_id,
-        reply_to=aura.reply_to_msg_id,
-        silent=True if aura.is_reply else False,
+        vamp.chat_id,
+        reply_to=vamp.reply_to_msg_id,
+        silent=True if vamp.is_reply else False,
         hide_via=True,
     )
-    await aura.delete()
+    await vamp.delete()
     
 
 CmdHelp("memevoice").add_command(

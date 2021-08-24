@@ -1,14 +1,14 @@
 import time
 from userbot import *
-from AuraXBot.utils import *
+from vampBot.utils import *
 from userbot.cmdhelp import CmdHelp
 from telethon import events, version
 from telethon.events import NewMessage
 from telethon.tl.custom import Dialog
 from telethon.tl.types import Channel, Chat, User
 from telethon import version
-from userbot import ALIVE_NAME, StartTime, AuraXversion
-from AuraXBot.utils import admin_cmd, edit_or_reply, sudo_cmd
+from userbot import ALIVE_NAME, StartTime, vampversion
+from vampBot.utils import admin_cmd, edit_or_reply, sudo_cmd
 
 
 #-------------------------------------------------------------------------------
@@ -28,9 +28,9 @@ if ludosudo:
 else:
     sudou = "False"
 
-DEFAULTUSER = ALIVE_NAME or "AuraX User"
-AuraX_IMG = Config.ALIVE_PIC
-CUSTOM_ALIVE_TEXT = Config.ALIVE_MSG or "Legendary AuraXBot"
+DEFAULTUSER = ALIVE_NAME or "vamp User"
+vamp_IMG = Config.ALIVE_PIC
+CUSTOM_ALIVE_TEXT = Config.ALIVE_MSG or "Legendary vampBot"
 
 USERID = bot.uid
 
@@ -75,32 +75,32 @@ async def amireallyalive(alive):
         return
     reply_to_id = await reply_id(alive)
 
-    if AuraX_IMG:
-        AuraX_caption = f"**{CUSTOM_ALIVE_TEXT}**\n\n"
+    if vamp_IMG:
+        vamp_caption = f"**{CUSTOM_ALIVE_TEXT}**\n\n"
         
-        AuraX_caption += f"**__----AuraXBot Status----__**\n\n"
-        AuraX_caption += f"**➬ Telethon :** `{version.__version__}`\n"
-        AuraX_caption += f"**➬ AuraXBot :**`{AuraXversion}`\n"
-        AuraX_caption += f"**➬ Uptime :** `{uptime}\n`"
-        AuraX_caption += f"**➬ Sudo       : `{sudou}`**\n"
-        AuraX_caption += f"**➬ Channel   : [Join](https://t.me/AuraXUserbot)**\n"
-        AuraX_caption += f"**➬ Master:** {mention}\n"
+        vamp_caption += f"**__----vampBot Status----__**\n\n"
+        vamp_caption += f"**➬ Telethon :** `{version.__version__}`\n"
+        vamp_caption += f"**➬ vampBot :**`{vampversion}`\n"
+        vamp_caption += f"**➬ Uptime :** `{uptime}\n`"
+        vamp_caption += f"**➬ Sudo       : `{sudou}`**\n"
+        vamp_caption += f"**➬ Channel   : [Join](https://t.me/VAMPBOT_OFFICIAL)**\n"
+        vamp_caption += f"**➬ Master:** {mention}\n"
 
         await alive.client.send_file(
-            alive.chat_id, AuraX_IMG, caption=AuraX_caption, reply_to=reply_to_id
+            alive.chat_id, vamp_IMG, caption=vamp_caption, reply_to=reply_to_id
         )
         await alive.delete()
     else:
         await edit_or_reply(
             alive,
             f"**{CUSTOM_ALIVE_TEXT}**\n\n"
-            f"**__----AuraXBot Status----__**\n\n"
+            f"**__----vampBot Status----__**\n\n"
            
             f"**➬ Telethon :** `{version.__version__}`\n"
-            f"**➬ AuraXBot :**`{AuraXversion}`\n"
+            f"**➬ vampBot :**`{vampversion}`\n"
             f"**➬ Uptime :** `{uptime}\n`"
             f"**➬ Sudo : `{sudou}`**\n"
-            f"**➬ Channel : [Join](https://t.me/AuraXUserbot)**\n"
+            f"**➬ Channel : [Join](https://t.me/VAMPBOT_OFFICIAL)**\n"
             f"**➬ Master:** {mention}\n",
         )
 

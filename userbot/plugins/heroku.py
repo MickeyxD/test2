@@ -7,7 +7,7 @@ import requests
 
 from userbot import CMD_HELP
 from userbot.Config import Config
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 import urllib3
 
@@ -22,7 +22,7 @@ HEROKU_API_KEY = Config.HEROKU_API_KEY
 
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 heroku_api = "https://api.heroku.com"
-AuraX_logo = "./AURAX/AuraXBot_logo.jpg"
+vamp_logo = "./vamp/vampBot_logo.jpg"
 
 
 @borg.on(
@@ -184,19 +184,19 @@ async def _(dyno):
     try:
         Heroku = heroku3.from_key(HEROKU_API_KEY)
         app = Heroku.app(HEROKU_APP_NAME)
-        thumb = AuraX_logo
+        thumb = vamp_logo
     except:
         return await dyno.reply(
-            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku\n\n[Visit Support Group For Help](https://t.me/AuraXSupport)"
+            " Please make sure your Heroku API Key, Your App name are configured correctly in the heroku\n\n[Visit Support Group For Help](https://t.me/vampSupport)"
         )
-    AuraX_data = app.get_log()
-    AuraX_key = (
-        requests.post("https://nekobin.com/api/documents", json={"content": AuraX_data})
+    vamp_data = app.get_log()
+    vamp_key = (
+        requests.post("https://nekobin.com/api/documents", json={"content": vamp_data})
         .json()
         .get("result")
         .get("key")
     )
-    AuraX_url = f"⚡ Pasted this logs.txt to [NekoBin](https://nekobin.com/{AuraX_key}) && [RAW PAGE](https://nekobin.com/raw/{AuraX_key}) ⚡"
+    vamp_url = f"⚡ Pasted this logs.txt to [NekoBin](https://nekobin.com/{vamp_key}) && [RAW PAGE](https://nekobin.com/raw/{vamp_key}) ⚡"
     await dyno.edit("Getting Logs....")
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
@@ -206,7 +206,7 @@ async def _(dyno):
         "logs.txt",
         reply_to=dyno.id,
         thumb=thumb,
-        caption=AuraX_url,
+        caption=vamp_url,
     )
 
     await asyncio.sleep(5)

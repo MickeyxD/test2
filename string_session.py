@@ -4,7 +4,7 @@ import random
 from colorama import Fore, Style, Back
 
 
-aura = """
+vamp = """
 ╔╗──╔═══╦═══╦═══╦═╗─╔╦═══╦═══╦═══╦╗──╔╗
 ║║──║╔══╣╔═╗║╔══╣║╚╗║╠╗╔╗║╔═╗║╔═╗║╚╗╔╝║  
 ║║──║╚══╣║─╚╣╚══╣╔╗╚╝║║║║║║─║║╚═╝╠╗╚╝╔╝  
@@ -21,18 +21,18 @@ logo = """
 ┗┛ ┗┻━━┻┛┗┛┗┻┛┗┻━━┻━━┻━┛
 """
 baap_bolte = """
-#Legendary AuraXBot          
-Made With Love By Team AuraXBot
+#Legendary vampBot          
+Made With Love By Team vampBot
 """
                                                                                                             
 print("")
-print(Style.BRIGHT + Fore.MAGENTA + aura)
+print(Style.BRIGHT + Fore.MAGENTA + vamp)
 print(Style.RESET_ALL)
 print(Style.BRIGHT + Fore.BLUE + logo)
 print(Style.RESET_ALL)
 print(Style.BRIGHT + Fore.CYAN + Back.BLUE + baap_bolte)
 print(Style.RESET_ALL)
-print("""Welcome To AuraXBot String Generator By @IisGaurav""")
+print("""Welcome To vampBot String Generator By @D15H4NT0P""")
 print("""Kindly Enter Your Details To Continue ! """)
 
 API_KEY = input("API_KEY: ")
@@ -46,11 +46,11 @@ while True:
             session = client.session.save()
             client.send_message(
                 "me",
-                f"Here is your TELEGRAM STRING SESSION\n(Tap to copy it)👇 \n\n `{session}` \n\n And Visit @AuraXUserbot For Any Help !",
+                f"Here is your TELEGRAM STRING SESSION\n(Tap to copy it)👇 \n\n `{session}` \n\n And Visit @VAMPBOT_OFFICIAL For Any Help !",
             )
 
             print(
-                "Thanks for Choosing AuraXBot Have A Good Time....Note That When You Terminate the Old Session ComeBack And Genrate A New String Session Old One Wont Work"
+                "Thanks for Choosing vampBot Have A Good Time....Note That When You Terminate the Old Session ComeBack And Genrate A New String Session Old One Wont Work"
             )
     except:
         print("")

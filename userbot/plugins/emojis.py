@@ -6,7 +6,7 @@ Available Commands:
 .emoji -_-"""
 import asyncio
 
-from AuraXBot.utils import admin_cmd
+from vampBot.utils import admin_cmd
 from userbot.cmdhelp import CmdHelp
 
 @bot.on(admin_cmd(pattern="emoji (.*)"))

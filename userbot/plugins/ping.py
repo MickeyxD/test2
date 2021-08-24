@@ -5,8 +5,8 @@ from .. import ALIVE_NAME, CMD_HELP
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from ..cmdhelp import CmdHelp
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
-aura = borg.uid
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
+vamp = borg.uid
 
 
 @bot.on(admin_cmd(pattern=f"hbping$", outgoing=True))
@@ -68,7 +68,7 @@ async def _(event):
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     await event.edit(
-        f"➤ 𝐏𝐨𝐧𝐠! {ms}\n\n➤ 𝐌𝐚𝐬𝐭𝐞𝐫 [{DEFAULTUSER}](tg://user?id={aura})"
+        f"➤ 𝐏𝐨𝐧𝐠! {ms}\n\n➤ 𝐌𝐚𝐬𝐭𝐞𝐫 [{DEFAULTUSER}](tg://user?id={vamp})"
     )
 
 

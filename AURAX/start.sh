@@ -1,5 +1,5 @@
 #!/bin/bash
-#   Copyright (C) 2021 AuraXNetwork
+#   Copyright (C) 2021 vampNetwork
 #
 #   Poject VΛDΣЯ is free software: 
 #   you can redistribute it and/or modify it under the terms of the GNU General Public License 
@@ -23,8 +23,8 @@ echo """
 ┃┏━┓┃┗┛┃┃┃┏┓┣╋╋┫┗┛┃┗┛┃┗┓
 ┗┛ ┗┻━━┻┛┗┛┗┻┛┗┻━━┻━━┻━┛
               
-Legendary AuraXBot!!
-@AuraXUserbot
+Legendary vampBot!!
+@VAMPBOT_OFFICIAL
 """
 
 python3 -m userbot

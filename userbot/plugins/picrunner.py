@@ -9,7 +9,7 @@ import urllib
 
 import requests
 from telethon.tl import functions
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 
@@ -69,7 +69,7 @@ async def animepp():
 @bot.on(admin_cmd(pattern="ppr ?(.*)", outgoing=True))
 async def main(event):
     await event.edit(
-        "**Starting Profile Pic Runner by @AuraXUserbot ..**"
+        "**Starting Profile Pic Runner by @VAMPBOT_OFFICIAL ..**"
     )  # Owner @Kraken_The_BadAss
     while True:
         try:

@@ -1,7 +1,7 @@
 # Added more fonts by @Kraken_The_BadAss
 # Ported from saitama i guess
 
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 normiefont = [
@@ -342,4 +342,4 @@ CmdHelp("fonts").add_command(
 ).add_command(
   'zal', '<text>', 'Zagolifies your text'
 ).add()
-#AuraXBot_Op
+#vampBot_Op

@@ -1,8 +1,8 @@
-# PLUGIN MADE BY @IisGaurav FOR AuraXBot
+# PLUGIN MADE BY @D15H4NT0P FOR vampBot
 # KEEP CREDITS ELSE GAY
 
 import random, re
-from AuraXBot.utils import admin_cmd
+from vampBot.utils import admin_cmd
 import asyncio
 from telethon import events	
 @borg.on(admin_cmd(pattern="hklove", outgoing=True))

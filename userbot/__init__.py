@@ -8,7 +8,7 @@ from userbot.Config import Config
 from var import Var
 
 StartTime = time.time()
-AuraXversion = "2.3.2"
+vampversion = "2.3.2"
 botversion = "0.1"
 
 os.system("pip install --upgrade pip")
@@ -31,7 +31,7 @@ LOAD_PLUG = {}
 # PaperPlaneExtended Support Vars
 ENV = os.environ.get("ENV", False)
 
-AuraX_ID = 1869741341 or  1837224931 or 1642269125
+vamp_ID = 1869741341 or  1837224931 or 1642269125
 
 """ PPE initialization. """
 
@@ -149,7 +149,7 @@ except:
     # Upstream Repo
     UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/iisgaurav/AuraXBot.git")
+    "https://github.com/D15H4NT0P/vampBot.git")
 
     # Last.fm Module
     BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
@@ -208,5 +208,5 @@ SUDO_LIST = {}
 
 
 from userbot.helpers import *
-from userbot.helpers import functions as AuraXdef
+from userbot.helpers import functions as vampdef
 from userbot.cmdhelp import CmdHelp

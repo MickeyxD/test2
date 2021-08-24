@@ -7,9 +7,9 @@ import asyncio
 from userbot.cmdhelp import CmdHelp
 
 from userbot import *
-from AuraXBot.utils import *
+from vampBot.utils import *
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 
 
 @bot.on(admin_cmd(pattern="imp(|n) (.*)", outgoing=True))
@@ -17,8 +17,8 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
 async def _(event):
     if event.fwd_from:
         return
-    aura = bot.uid
-    USERNAME = f"tg://user?id={aura}"
+    vamp = bot.uid
+    USERNAME = f"tg://user?id={vamp}"
     name = event.pattern_match.group(2)
     cmd = event.pattern_match.group(1).lower()
     text1 = await edit_or_reply(event, "Hmm... Looks like Something is wrong here🤔🧐!!")
@@ -60,42 +60,42 @@ async def _(event):
     stcr4 = await event.client.send_file(
         event.chat_id, "CAADAQADLwADnjOcH-wxu-ehy6NRAg"
     )
-    AuraXevent = await event.reply(f"{name} is ejected.......🤐")
+    vampevent = await event.reply(f"{name} is ejected.......🤐")
     await asyncio.sleep(2)
-    await AuraXevent.edit("ඞㅤㅤㅤㅤ ㅤㅤㅤㅤ")
+    await vampevent.edit("ඞㅤㅤㅤㅤ ㅤㅤㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤඞㅤㅤㅤㅤ ㅤㅤㅤ")
+    await vampevent.edit("ㅤඞㅤㅤㅤㅤ ㅤㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤ ඞㅤㅤㅤㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤ ඞㅤㅤㅤㅤㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤ ඞㅤㅤㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤ ඞㅤㅤㅤㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤㅤ ඞㅤㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤ ඞㅤㅤㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤ ඞㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤ ඞㅤㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤ ඞㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤ ඞㅤㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤㅤ ඞㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤㅤ ඞㅤ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ඞ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ඞ")
     await asyncio.sleep(0.5)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ㅤ")
     await asyncio.sleep(0.2)
     await stcr4.delete()
     if cmd == "":
-        await AuraXevent.edit(
+        await vampevent.edit(
             f". 　　　。　　　　•　 　ﾟ　　。 　　.\n .　　　 　　.　　　　　。　　 。　. 　\n\n  . 　　 。   　     ඞ         。 . 　　 • 　　　　•\n\n  ﾟ{name} was an Imposter.      。　. 　 　       。　.                                        。　. \n                                   　.          。　  　. \n　'         0 Impostor remains    　 。　.  　　.                。　.        。 　     .          。 　            .               .         .    ,      。\n　　ﾟ　　　.　　.    ,　 　。　 　. 　 .     。"
         )
         await asyncio.sleep(4)
-        await AuraXevent.delete()
+        await vampevent.delete()
         await event.client.send_file(event.chat_id, "CAADAQADLQADnjOcH39IqwyR6Q_0Ag")
     elif cmd == "n":
-        await AuraXevent.edit(
+        await vampevent.edit(
             f". 　　　。　　　　•　 　ﾟ　　。 　　.\n .　　　 　　.　　　　　。　　 。　. 　\n\n  . 　　 。   　     ඞ         。 . 　　 • 　　　　•\n\n  ﾟ{name} was not an Imposter.      。　. 　 　       。　.                                        。　. \n                                   　.          。　  　. \n　'         1 Impostor remains    　 。　.  　　.                。　.        。 　     .          。 　            .               .         .    ,      。\n　　ﾟ　　　.　　.    ,　 　。　 　. 　 .     。"
         )
         await asyncio.sleep(4)
-        await AuraXevent.delete()
+        await vampevent.delete()
         await event.client.send_file(event.chat_id, "CAADAQADQAADnjOcH-WOkB8DEctJAg")
 
 
@@ -106,34 +106,34 @@ async def _(event):
         return
     name = event.pattern_match.group(2)
     cmd = event.pattern_match.group(1).lower()
-    AuraXevent = await edit_or_reply(event, f"{name} is ejected.......")
+    vampevent = await edit_or_reply(event, f"{name} is ejected.......")
     await asyncio.sleep(2)
-    await AuraXevent.edit("ඞㅤㅤㅤㅤ ㅤㅤㅤㅤ")
+    await vampevent.edit("ඞㅤㅤㅤㅤ ㅤㅤㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤඞㅤㅤㅤㅤ ㅤㅤㅤ")
+    await vampevent.edit("ㅤඞㅤㅤㅤㅤ ㅤㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤ ඞㅤㅤㅤㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤ ඞㅤㅤㅤㅤㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤ ඞㅤㅤㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤ ඞㅤㅤㅤㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤㅤ ඞㅤㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤ ඞㅤㅤㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤ ඞㅤㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤ ඞㅤㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤ ඞㅤㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤ ඞㅤㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤㅤ ඞㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤㅤ ඞㅤ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ඞ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ඞ")
     await asyncio.sleep(0.8)
-    await AuraXevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ㅤ")
+    await vampevent.edit("ㅤㅤㅤㅤㅤㅤㅤㅤ ㅤ")
     await asyncio.sleep(0.2)
     if cmd == "":
-        await AuraXevent.edit(
+        await vampevent.edit(
             f". 　　　。　　　　•　 　ﾟ　　。 　　.\n .　　　 　　.　　　　　。　　 。　. 　\n\n  . 　　 。   　     ඞ         。 . 　　 • 　　　　•\n\n  ﾟ {name} was an Imposter.      。　. 　 　       。　.                                        。　. \n                                   　.          。　  　. \n　'         0 Impostor remains    　 。　.  　　.                。　.        。 　     .          。 　            .               .         .    ,      。\n　　ﾟ　　　.　　.    ,　 　。　 　. 　 .     。"
         )
     elif cmd == "n":
-        await AuraXevent.edit(
+        await vampevent.edit(
             f". 　　　。　　　　•　 　ﾟ　　。 　　.\n .　　　 　　.　　　　　。　　 。　. 　\n\n  . 　　 。   　     ඞ         。 . 　　 • 　　　　•\n\n  ﾟ {name} was not an Imposter.      。　. 　 　       。　.                                        。　. \n                                   　.          。　  　. \n　'         1 Impostor remains    　 。　.  　　.                。　.        。 　     .          。 　            .               .         .    ,      。\n　　ﾟ　　　.　　.    ,　 　。　 　. 　 .     。"
         )
 

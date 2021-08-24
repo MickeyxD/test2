@@ -10,7 +10,7 @@ from telethon.errors import PhotoInvalidDimensionsError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.messages import SendMediaRequest
 
-from AuraXBot.utils import admin_cmd, edit_or_reply, progress, sudo_cmd
+from vampBot.utils import admin_cmd, edit_or_reply, progress, sudo_cmd
 from userbot import CMD_HELP
 from userbot.helpers.functions import unzip
 from userbot.cmdhelp import CmdHelp
@@ -21,13 +21,13 @@ if not os.path.isdir("./temp"):
 
 @bot.on(admin_cmd(pattern="stoi$"))
 @bot.on(sudo_cmd(pattern="stoi$", allow_sudo=True))
-async def _(AuraX):
-    if AuraX.fwd_from:
+async def _(vamp):
+    if vamp.fwd_from:
         return
-    reply_to_id = AuraX.message.id
-    if AuraX.reply_to_msg_id:
-        reply_to_id = AuraX.reply_to_msg_id
-    event = await edit_or_reply(AuraX, "Converting.....")
+    reply_to_id = vamp.message.id
+    if vamp.reply_to_msg_id:
+        reply_to_id = vamp.reply_to_msg_id
+    event = await edit_or_reply(vamp, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -36,11 +36,11 @@ async def _(AuraX):
         reply_message = await event.get_reply_message()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await AuraX.client.download_media(
+        downloaded_file_name = await vamp.client.download_media(
             reply_message, downloaded_file_name
         )
         if os.path.exists(downloaded_file_name):
-            caat = await AuraX.client.send_file(
+            caat = await vamp.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
                 force_document=False,
@@ -56,13 +56,13 @@ async def _(AuraX):
 
 @bot.on(admin_cmd(pattern="itos$"))
 @bot.on(sudo_cmd(pattern="itos$", allow_sudo=True))
-async def _(AuraX):
-    if AuraX.fwd_from:
+async def _(vamp):
+    if vamp.fwd_from:
         return
-    reply_to_id = AuraX.message.id
-    if AuraX.reply_to_msg_id:
-        reply_to_id = AuraX.reply_to_msg_id
-    event = await edit_or_reply(AuraX, "Converting.....")
+    reply_to_id = vamp.message.id
+    if vamp.reply_to_msg_id:
+        reply_to_id = vamp.reply_to_msg_id
+    event = await edit_or_reply(vamp, "Converting.....")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -71,11 +71,11 @@ async def _(AuraX):
         reply_message = await event.get_reply_message()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await AuraX.client.download_media(
+        downloaded_file_name = await vamp.client.download_media(
             reply_message, downloaded_file_name
         )
         if os.path.exists(downloaded_file_name):
-            caat = await AuraX.client.send_file(
+            caat = await vamp.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
                 force_document=False,
@@ -157,31 +157,31 @@ async def on_file_to_photo(event):
 async def _(event):
     if event.fwd_from:
         return
-    AuraXreply = await event.get_reply_message()
-    if not AuraXreply or not AuraXreply.media or not AuraXreply.media.document:
+    vampreply = await event.get_reply_message()
+    if not vampreply or not vampreply.media or not vampreply.media.document:
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
-    if AuraXreply.media.document.mime_type != "application/x-tgsticker":
+    if vampreply.media.document.mime_type != "application/x-tgsticker":
         return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
     chat = "@tgstogifbot"
-    AuraXevent = await edit_or_reply(event, "`Converting to gif ...`")
+    vampevent = await edit_or_reply(event, "`Converting to gif ...`")
     async with event.client.conversation(chat) as conv:
         try:
             await silently_send_message(conv, "/start")
-            await event.client.send_file(chat, AuraXreply.media)
+            await event.client.send_file(chat, vampreply.media)
             response = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
             if response.text.startswith("Send me an animated sticker!"):
-                return await AuraXevent.edit("`This file is not supported`")
-            AuraXresponse = response if response.media else await conv.get_response()
+                return await vampevent.edit("`This file is not supported`")
+            vampresponse = response if response.media else await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
-            AuraXfile = Path(await event.client.download_media(AuraXresponse, "./temp/"))
-            AuraXgif = Path(await unzip(AuraXfile))
-            aura = await event.client.send_file(
+            vampfile = Path(await event.client.download_media(vampresponse, "./temp/"))
+            vampgif = Path(await unzip(vampfile))
+            vamp = await event.client.send_file(
                 event.chat_id,
-                AuraXgif,
+                vampgif,
                 support_streaming=True,
                 force_document=False,
                 reply_to=reply_to_id,
@@ -189,19 +189,19 @@ async def _(event):
             await event.client(
                 functions.messages.SaveGifRequest(
                     id=types.InputDocument(
-                        id=aura.media.document.id,
-                        access_hash=aura.media.document.access_hash,
-                        file_reference=aura.media.document.file_reference,
+                        id=vamp.media.document.id,
+                        access_hash=vamp.media.document.access_hash,
+                        file_reference=vamp.media.document.file_reference,
                     ),
                     unsave=True,
                 )
             )
-            await AuraXevent.delete()
-            for files in (AuraXgif, AuraXfile):
+            await vampevent.delete()
+            for files in (vampgif, vampfile):
                 if files and os.path.exists(files):
                     os.remove(files)
         except YouBlockedUserError:
-            await AuraXevent.edit("Unblock @tgstogifbot")
+            await vampevent.edit("Unblock @tgstogifbot")
             return
 
 

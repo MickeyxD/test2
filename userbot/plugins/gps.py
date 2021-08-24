@@ -5,8 +5,8 @@
 from geopy.geocoders import Nominatim
 from telethon.tl import types
 
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
-from AuraXBot import CmdHelp
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot import CmdHelp
 
 @bot.on(admin_cmd(pattern="gps ?(.*)"))
 @bot.on(sudo_cmd(pattern="gps ?(.*)", allow_sudo=True))
@@ -23,7 +23,7 @@ async def gps(event):
 
     await edit_or_reply(event, "Finding😁")
 
-    geolocator = Nominatim(user_agent="AuraXBot")
+    geolocator = Nominatim(user_agent="vampBot")
     geoloc = geolocator.geocode(input_str)
 
     if geoloc:

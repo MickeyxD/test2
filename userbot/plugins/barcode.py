@@ -2,7 +2,7 @@
 Command .barcode (your text)
 By @snappy101
 """
-#ported in AuraXBot By @IisGaurav
+#ported in vampBot By @D15H4NT0P
 import asyncio
 import barcode
 import os

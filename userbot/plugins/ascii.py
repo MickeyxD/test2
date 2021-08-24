@@ -8,10 +8,10 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 from userbot import ALIVE_NAME, CMD_HELP
-from AuraXBot.utils import admin_cmd, edit_or_reply, sudo_cmd
+from vampBot.utils import admin_cmd, edit_or_reply, sudo_cmd
 from userbot.cmdhelp import CmdHelp
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
 
 USERID = bot.uid
 
@@ -35,7 +35,7 @@ async def _(event):
     if reply_message.sender.bot:
         await edit_or_reply(event, "Reply to actual users message.😒🤐")
         return
-    aura = await edit_or_reply(event, "Wait making ASCII...🤓🔥🔥")
+    vamp = await edit_or_reply(event, "Wait making ASCII...🤓🔥🔥")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
@@ -44,14 +44,14 @@ async def _(event):
             await event.client.send_message(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await aura.edit("`Please unblock @asciiart_bot and try again`")
+            await vamp.edit("`Please unblock @asciiart_bot and try again`")
             return
         if response.text.startswith("Forward"):
-            await aura.edit(
+            await vamp.edit(
                 "`can you kindly disable your forward privacy settings for good?`"
             )
         else:
-            await aura.delete()
+            await vamp.delete()
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
@@ -77,7 +77,7 @@ async def _(event):
     if reply_message.sender.bot:
         await edit_or_reply(event, "Reply to actual users message.😒🤐")
         return
-    aura = await edit_or_reply(event, "`Processing`")
+    vamp = await edit_or_reply(event, "`Processing`")
     async with event.client.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
@@ -87,9 +87,9 @@ async def _(event):
             pic = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            await aura.edit("Please unblock @Lines50Bot and try again")
+            await vamp.edit("Please unblock @Lines50Bot and try again")
             return
-        await aura.delete()
+        await vamp.delete()
         await event.client.send_file(
             event.chat_id,
             pic,

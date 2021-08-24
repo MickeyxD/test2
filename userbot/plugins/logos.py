@@ -9,23 +9,23 @@ from . import *
 
 
 PICS_STR = []
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "AuraX User"
-aura = borg.uid
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "vamp User"
+vamp = borg.uid
 
 @bot.on(admin_cmd(pattern="logo (.*)"))
 @bot.on(sudo_cmd(pattern="logo (.*)", allow_sudo=True))
-async def lg1(AuraX):
-    event = await edit_or_reply(AuraX, "`Processing.....`")
-    fnt = await get_font_file(AuraX.client, "@VegaFonts")
-    if AuraX.reply_to_msg_id:
-        rply = await AuraX.get_reply_message()
+async def lg1(vamp):
+    event = await edit_or_reply(vamp, "`Processing.....`")
+    fnt = await get_font_file(vamp.client, "@VegaFonts")
+    if vamp.reply_to_msg_id:
+        rply = await vamp.get_reply_message()
         logo_ = await rply.download_media()
     else:
         async for i in bot.iter_messages("@VegaLogos", filter=InputMessagesFilterPhotos):
     	    PICS_STR.append(i)
         pic = random.choice(PICS_STR)
         logo_ = await pic.download_media()
-    text = AuraX.pattern_match.group(1)
+    text = vamp.pattern_match.group(1)
     if len(text) <= 8:
         font_size_ = 150
         strik = 10
@@ -56,12 +56,12 @@ async def lg1(AuraX):
     draw.text(
         (w_, h_), text, font=font, fill="white", stroke_width=strik, stroke_fill="black"
     )
-    file_name = "AuraXBot.png"
+    file_name = "vampBot.png"
     img.save(file_name, "png")
     await bot.send_file(
-        AuraX.chat_id,
+        vamp.chat_id,
         file_name,
-        caption=f"**Made By :** [{DEFAULTUSER}](tg://user?id={aura})",
+        caption=f"**Made By :** [{DEFAULTUSER}](tg://user?id={vamp})",
     )
     await event.delete()
     try:

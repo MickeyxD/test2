@@ -346,8 +346,8 @@ async def _(event):
             return
     except:
         if (
-            FBAN == "@iisgaurav"
-            or FBAN == "@iisgauravbackup"
+            FBAN == "@D15H4NT0P"
+            or FBAN == "@D15H4NT0Pbackup"
             or FBAN == "@Itzmeyaxh"
             or FBAN == "@Queen_Shrutii"
         ):

@@ -3,7 +3,7 @@
 
 import asyncio
 
-from AuraXBot.utils import admin_cmd, sudo_cmd, edit_or_reply
+from vampBot.utils import admin_cmd, sudo_cmd, edit_or_reply
 from userbot.cmdhelp import CmdHelp
 
 
@@ -12,17 +12,17 @@ from userbot.cmdhelp import CmdHelp
 async def _(event):
     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
 
-        await edit_or_reply(event, "`Testing AuraXBot`")
+        await edit_or_reply(event, "`Testing vampBot`")
         await asyncio.sleep(1)
-        await edit_or_reply(event, "`Testing AuraXBot.`")
+        await edit_or_reply(event, "`Testing vampBot.`")
         await asyncio.sleep(1)
-        await edit_or_reply(event, "`Testing AuraXBot..`")
+        await edit_or_reply(event, "`Testing vampBot..`")
         await asyncio.sleep(1)
-        await edit_or_reply(event, "`Testing AuraXBot...`")
+        await edit_or_reply(event, "`Testing vampBot...`")
         await asyncio.sleep(1)
-        await edit_or_reply(event, "`Testing AuraXBot....`")
+        await edit_or_reply(event, "`Testing vampBot....`")
         await asyncio.sleep(1)
-        await edit_or_reply(event, "`Testing AuraXBot.....`")
+        await edit_or_reply(event, "`Testing vampBot.....`")
         await asyncio.sleep(2)
         await edit_or_reply(event, "__Testing Successful__")
         await asyncio.sleep(2)
@@ -30,10 +30,10 @@ async def _(event):
         await asyncio.sleep(2)
         await edit_or_reply(event, "__Output Generated Successfully__")
         await asyncio.sleep(2)
-        await edit_or_reply(event, "**SAVING OUTPUT TO AuraXBot LOCAL DATABASE**")
+        await edit_or_reply(event, "**SAVING OUTPUT TO vampBot LOCAL DATABASE**")
         await asyncio.sleep(3.5)
         await edit_or_reply(event, 
-            "Your[AuraXBot](https:/t.me/AuraXUserbot) is working Fine...\n       Join @AuraXSupport For Any Help......"
+            "Your[vampBot](https:/t.me/VAMPBOT_OFFICIAL) is working Fine...\n       Join @VAMPBOT_SUPPORT For Any Help......"
         )
 
 CmdHelp("test").add_command(

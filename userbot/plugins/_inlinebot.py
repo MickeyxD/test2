@@ -25,16 +25,16 @@ from telethon.tl.functions.channels import JoinChannelRequest
 
 from userbot import *
 from userbot.cmdhelp import *
-from AuraXBot.utils import *
+from vampBot.utils import *
 from userbot.Config import Config
 
-AuraX_row = Config.BUTTONS_IN_HELP
-AuraX_emoji = Config.EMOJI_IN_HELP
+vamp_row = Config.BUTTONS_IN_HELP
+vamp_emoji = Config.EMOJI_IN_HELP
 # thats how a lazy guy imports
-# AuraXUserbot
+# vampUserbot
 
 def button(page, modules):
-    Row = AuraX_row
+    Row = vamp_row
     Column = 3
 
     modules = sorted([modul for modul in modules if not modul.startswith("_")])
@@ -47,7 +47,7 @@ def button(page, modules):
     for pairs in pairs[page]:
         buttons.append(
             [
-                custom.Button.inline(f"{AuraX_emoji} " + pair  + f" {AuraX_emoji}", data=f"Information[{page}]({pair})")
+                custom.Button.inline(f"{vamp_emoji} " + pair  + f" {vamp_emoji}", data=f"Information[{page}]({pair})")
                 for pair in pairs
             ]
         )
@@ -55,18 +55,18 @@ def button(page, modules):
     buttons.append(
         [
             custom.Button.inline(
-               f"{AuraX_emoji} 𝐁𝐀𝐂𝐊 {AuraX_emoji}", data=f"page({(max_pages - 1) if page == 0 else (page - 1)})"
+               f"{vamp_emoji} 𝐁𝐀𝐂𝐊 {vamp_emoji}", data=f"page({(max_pages - 1) if page == 0 else (page - 1)})"
             ),
             custom.Button.inline(
-               f"•{AuraX_emoji} ❌ {AuraX_emoji}•", data="close"
+               f"•{vamp_emoji} ❌ {vamp_emoji}•", data="close"
             ),
             custom.Button.inline(
-               f"{AuraX_emoji} 𝐍𝐄𝐗𝐓 {AuraX_emoji}", data=f"page({0 if page == (max_pages - 1) else page + 1})"
+               f"{vamp_emoji} 𝐍𝐄𝐗𝐓 {vamp_emoji}", data=f"page({0 if page == (max_pages - 1) else page + 1})"
             ),
         ]
     )
     return [max_pages, buttons]
-    # Changing this line may give error in bot as i added some special cmds in AuraXUserbot channel to get this module work...
+    # Changing this line may give error in bot as i added some special cmds in vampUserbot channel to get this module work...
 
     modules = CMD_HELP
 if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
@@ -75,12 +75,12 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         builder = event.builder
         result = None
         query = event.text
-        if event.query.user_id == bot.uid and query == "@AuraXUserbot":
+        if event.query.user_id == bot.uid and query == "@VAMPBOT_OFFICIAL":
             rev_text = query[::-1]
             veriler = button(0, sorted(CMD_HELP))
             result = await builder.article(
                 f"Hey! Only use .help please",
-                text=f"**Running AuraXUserbot**\n\n__Number of plugins installed__ :`{len(CMD_HELP)}`\n**page:** 1/{veriler[0]}",
+                text=f"**Running vampUserbot**\n\n__Number of plugins installed__ :`{len(CMD_HELP)}`\n**page:** 1/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -94,18 +94,18 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             )
         else:
             result = builder.article(
-                "@AuraXUserbot",
-                text="""**Hey! This is [AuraXUserbot.](https://t.me/AuraXUserbot) \nYou can know more about me from the links given below 👇**""",
+                "@VAMPBOT_OFFICIAL",
+                text="""**Hey! This is [vampUserbot.](https://t.me/VAMPBOT_OFFICIAL) \nYou can know more about me from the links given below 👇**""",
                 buttons=[
                     [
-                        custom.Button.url("🔥 CHANNEL 🔥", "https://t.me/AuraXUserbot"),
+                        custom.Button.url("🔥 CHANNEL 🔥", "https://t.me/VAMPBOT_OFFICIAL"),
                         custom.Button.url(
-                            "⚡ GROUP ⚡", "https://t.me/AuraXSupport"
+                            "⚡ GROUP ⚡", "https://t.me/vampSupport"
                         ),
                     ],
                     [
                         custom.Button.url(
-                            "✨ REPO ✨", "https://github.com/iisgaurav/AuraXBot"),
+                            "✨ REPO ✨", "https://github.com/D15H4NT0P/vampBot"),
                     ],
                 ],
                 link_preview=False,
@@ -116,14 +116,14 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
     async def page(event):
         if not event.query.user_id == bot.uid:
             return await event.answer(
-                "HELLO THERE. PLEASE MAKE YOUR OWN AuraXUserbot AND USE (C)AuraXUserbot ",
+                "HELLO THERE. PLEASE MAKE YOUR OWN vampUserbot AND USE (C)vampUserbot ",
                 cache_time=0,
                 alert=True,
             )
         page = int(event.data_match.group(1).decode("UTF-8"))
         veriler = button(page, CMD_HELP)
         await event.edit(
-            f"**Legenday** [AuraXUserbot](https://t.me/AuraXUserbot) __Working...__\n\n**Number of modules installed :** `{len(CMD_HELP)}`\n**page:** {page + 1}/{veriler[0]}",
+            f"**Legenday** [vampUserbot](https://t.me/VAMPBOT_OFFICIAL) __Working...__\n\n**Number of modules installed :** `{len(CMD_HELP)}`\n**page:** {page + 1}/{veriler[0]}",
             buttons=veriler[1],
             link_preview=False,
         )
@@ -131,12 +131,12 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
     @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"close")))
     async def on_plug_in_callback_query_handler(event):
         if event.query.user_id == bot.uid:
-            await delete_AuraX(event,
-              "**AuraXUserbot Help Menu**\n\n         **[(C)AuraXUserbot](t.me/AuraXUserbot)**", 5, link_preview=False
+            await delete_vamp(event,
+              "**vampUserbot Help Menu**\n\n         **[(C)vampUserbot](t.me/VAMPBOT_OFFICIAL)**", 5, link_preview=False
             )
         else:
-            AuraX_alert = "Ho gya aapka? Kabse tapar tapar dabae jaa rhe h. Khudka bna lo na agr chaiye to. (C)AuraXUserbot"
-            await event.answer(AuraX_alert, cache_time=0, alert=True)
+            vamp_alert = "Ho gya aapka? Kabse tapar tapar dabae jaa rhe h. Khudka bna lo na agr chaiye to. (C)vampUserbot"
+            await event.answer(vamp_alert, cache_time=0, alert=True)
           
     @tgbot.on(
         callbackquery.CallbackQuery(data=compile(b"Information\[(\d*)\]\((.*)\)"))
@@ -144,7 +144,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
     async def Information(event):
         if not event.query.user_id == bot.uid:
             return await event.answer(
-                "HELLO THERE. PLEASE MAKE YOUR OWN AuraXUserbot AND USE (C)AuraXUserbot ",
+                "HELLO THERE. PLEASE MAKE YOUR OWN vampUserbot AND USE (C)vampUserbot ",
                 cache_time=0,
                 alert=True,
             )
@@ -164,7 +164,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             )
 
         buttons = [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
-        buttons.append([custom.Button.inline(f"{AuraX_emoji} 𝐁𝐀𝐂𝐊 {AuraX_emoji}", data=f"page({page})")])
+        buttons.append([custom.Button.inline(f"{vamp_emoji} 𝐁𝐀𝐂𝐊 {vamp_emoji}", data=f"page({page})")])
         await event.edit(
             f"**🗂 Module:** `{commands}`\n**No. of commands :** `{len(CMD_HELP_BOT[commands]['commands'])}`",
             buttons=buttons,
@@ -177,7 +177,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
     async def commands(event):
         if not event.query.user_id == bot.uid:
             return await event.answer(
-                "HELLO THERE. PLEASE MAKE YOUR OWN AuraXUserbot AND USE (C)AuraXUserbot ",
+                "HELLO THERE. PLEASE MAKE YOUR OWN vampUserbot AND USE (C)vampUserbot ",
                 cache_time=0,
                 alert=True,
             )
@@ -214,7 +214,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         await event.edit(
             result,
             buttons=[
-                custom.Button.inline(f"{AuraX_emoji} 𝐁𝐀𝐂𝐊 {AuraX_emoji}", data=f"Information[{page}]({cmd})")
+                custom.Button.inline(f"{vamp_emoji} 𝐁𝐀𝐂𝐊 {vamp_emoji}", data=f"Information[{page}]({cmd})")
             ],
             link_preview=False,
         )
